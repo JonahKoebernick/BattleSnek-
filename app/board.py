@@ -1,9 +1,9 @@
 import numpy as np
 
 UNOCCUPIED = 0
-OCCUPIED   = -1
-FOOD       = -2
-HEAD       = -3
+OCCUPIED   = 1
+FOOD       = -5
+HEAD       = 2
 
 STORED_BOARDS = {}
 
@@ -70,4 +70,5 @@ def deconstruct_board(state):
     game_id = state['game']['id']
     del STORED_BOARDS[game_id]
     print('Board deleted for finished game. id=' + game_id + '\n\n')
+
     return
