@@ -70,4 +70,5 @@ def deconstruct_board(state):
     game_id = state['game']['id']
     del STORED_BOARDS[game_id]
     print('Board deleted for finished game. id=' + game_id + '\n\n')
+
     return

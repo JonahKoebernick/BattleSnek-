@@ -1,3 +1,4 @@
+
 import numpy as np
 def calculate_move(board_matrix,head,height):
     directions = {'up':0, 'down':0, 'left':0, 'right':0}
@@ -34,3 +35,4 @@ def sum(matrix,x,y):
     sum += matrix[y-1, x]
     sum += matrix[y+1, x]
     return sum
+
