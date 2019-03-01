@@ -3,7 +3,10 @@ import os
 import random
 import bottle
 
+
 from api import ping_response, start_response, move_response, end_response
+from board import construct_board, update_board, deconstruct_board
+from move import calculate_move
 
 @bottle.route('/')
 def index():
@@ -22,61 +25,24 @@ def ping():
 @bottle.post('/start')
 def start():
     game_state = bottle.request.json
-
-    color = "#00FF00"
-
-    return start_response(color)
+    construct_board(game_state)
+    snake_colour = "#00FF00"
+    return start_response(snake_colour)
 
 
 @bottle.post('/move')
 def move():
     game_state = bottle.request.json
     height = game_state["board"]["height"]
-    board_matrix = [[0] * height for i in range(height)]
-    body = game_state["you"]["body"]
-    head = game_state["you"]["body"][0]
-    for i in range(len(body)):
-        board_matrix[body[i]["x"]][body[i]["y"]]=1
-    directions = {'up':0, 'down':0, 'left':0, 'right':0}
+    new_board = update_board(game_state)
+    my_head = game_state['you']['body'][0]
 
-    #Check up
-    if  head["y"]-1 < 0 or board_matrix[head["x"]][head["y"]-1]==1:
-         directions["up"]=100
-    else:
-        directions["up"] = sum(board_matrix,head["x"],head["y"]-1)
+    turn = game_state['turn']  # for testing
+    direction = calculate_move(new_board, my_head, height)
 
-    #Check down
-    if head["y"]+1 >= (height-1)  or board_matrix[head["x"]][head["y"]+1]==1:
-        directions["down"]=100
-    else:
-        directions["down"] = sum(board_matrix, head["x"], head["y"] +1)
-
-    #Check Left
-    if  head["x"]-1 < 0 or board_matrix[head["x"]-1][head["y"]]==1:
-        directions["left"]=100
-    else:
-        directions["left"] = sum(board_matrix, head["x"]-1, head["y"] )
-
-    #check right
-    if head["x"]+1 > (height-1) or  board_matrix[head["x"]+1][head["y"]] == 1:
-        directions["right"]=100
-    else:
-        directions["right"] = sum(board_matrix, head["x"]+1, head["y"] )
+    return move_response(direction)
 
 
-
-    print(game_state)
-    print(board_matrix)
-
-    return move_response(min(directions, key=lambda k: directions[k]))
-
-def sum(matrix,x,y):
-    sum =0
-    sum += matrix[x-1][y]
-    sum += matrix[x+1][y]
-    sum += matrix[x][y-1]
-    sum += matrix[x][y+1]
-    return sum
 
 @bottle.post('/end')
 def end():
