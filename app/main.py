@@ -12,7 +12,7 @@ def index():
        <a href="https://docs.battlesnake.io">https://docs.battlesnake.io</a>.
     '''
 
-@bottle.route('/static/<path:path>')
+@bottle.route('/static/<path:path>'
 def static(path):
     """
     Given a path, return the static file located relative
