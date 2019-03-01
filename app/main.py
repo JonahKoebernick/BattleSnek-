@@ -40,6 +40,7 @@ def move():
     turn = game_state['turn']  # for testing
     direction = calculate_move(new_board, my_head, height)
 
+
     return move_response(direction)
 
 
