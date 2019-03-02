@@ -1,9 +1,9 @@
 import numpy as np
 import random
 
-UNOCCUPIED = 0
-OCCUPIED = 2
-FOOD = -4
+UNOCCUPIED = -2
+OCCUPIED = 3
+FOOD = -3
 HEAD = 4
 HEALTHLIM = 90
 game_state = ""
@@ -74,7 +74,7 @@ def sum(matrix, x, y, height, health):
     else:
         sum += 2
     if (y - 1) >= 0:
-        if matrix[y - 1, x] is HEAD:
+        if matrix[y - 1, x] is  HEAD:
             if is_bigger(game_state['you']["body"], get_snek(x, y - 1, get_game_state())):
                 sum -= HEAD
             else:
@@ -84,7 +84,7 @@ def sum(matrix, x, y, height, health):
     else:
         sum += 2
     if (y + 1) < height:
-        if matrix[y + 1, x] is HEAD:
+        if matrix[y + 1, x] is  HEAD:
             if is_bigger(game_state['you'], get_snek(x, y + 1, get_game_state())):
                 sum -= HEAD
             else:
@@ -101,19 +101,24 @@ def sum(matrix, x, y, height, health):
         sum += matrix[y+1, x+1]
     if (x-1) > 0 and (y-1) > 0:
         sum += matrix[y-1, x-1]
-    if( health < 30 and matrix[y,x] == FOOD):
+    print(sum)
+    if( health < 5 and matrix[y,x] == FOOD):
         return -1000
     return sum + matrix[y, x]
 
 
 def get_snek(x, y, game_state):
     for snek in game_state["board"]["snakes"]:
-        if x in snek["body"]["x"] and y in snek["body"]["y"]:
-            return snek
+        snake_body = snek['body']
+        for xy in snake_body[1:]:
+            if( xy["y"]== y and xy["x"]==x):
+                return snek
 
 
 def is_bigger(snek1, snek2):
-    if len(snek1["body"]["x"]) > len(snek2["body"]["x"]):
+    if len(snek1["body"]) > len(snek2["body"]):
+        print("length**************")
+
         return true
     return false
 
