@@ -17,8 +17,8 @@ def start_response(color):
         },
         body=json.dumps({
             "color": color,
-            "headType": "beluga",
-            "tailType": "curled"
+            "headType": "tongue",
+            "tailType": "small-rattle"
         })
     )
 
