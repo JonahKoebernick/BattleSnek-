@@ -3,9 +3,9 @@ import numpy as np
 import random
 UNOCCUPIED = 0
 OCCUPIED   = 1
-FOOD       = -10
-HEAD       = 10
-HEALTHLIM = 50
+FOOD       = -2
+HEAD       = 5
+HEALTHLIM = 90
 game_state = ""
 
 def calculate_move(board_matrix, game_state):
@@ -20,25 +20,32 @@ def calculate_move(board_matrix, game_state):
         directions["up"] = 1000
     else:
         directions["up"] = sum(board_matrix, head["x"], head["y"] - 1,height, health)
+        if head["y"]  > height/2:
+            directions["up"] = directions["up"] - 1
 
     # Check down
     if head["y"] + 1 > (height - 1) or board_matrix[head["y"] + 1 ,head["x"]] == OCCUPIED :
         directions["down"] = 1000
     else:
         directions["down"] = sum(board_matrix, head["x"], head["y"] + 1,height, health)
+        if head["y"] < height/2:
+            directions["down"] = directions["down"] - 1
 
     # Check Left
     if head["x"] - 1 < 0 or board_matrix[head["y"] ,head["x"] - 1] == OCCUPIED :
         directions["left"] = 1000
     else:
         directions["left"] = sum(board_matrix, head["x"] - 1, head["y"],height, health)
+        if head["x"] > height/2:
+            directions["left"] = directions["left"] - 1
 
     # check right
     if head["x"] + 1 > (height - 1) or board_matrix[head["y"] ,head["x"] + 1] == OCCUPIED :
         directions["right"] = 1000
     else:
         directions["right"] = sum(board_matrix, head["x"] + 1, head["y"],height, health)
-
+        if head["x"] < height/2:
+            directions["right"] = directions["right"] - 1
     return min(directions, key=lambda k: directions[k])
 
 def sum(matrix,x,y,height, health):
@@ -85,9 +92,7 @@ def sum(matrix,x,y,height, health):
     else:
         sum += 2
 
-    if matrix[y,x] == FOOD and sum <12 and health < HEALTHLIM:
-        return -100
-    return sum
+    return sum + matrix[y,x]
 
 
 def get_snek(x, y, game_state):
