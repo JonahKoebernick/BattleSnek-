@@ -1,5 +1,6 @@
 
 import numpy as np
+import random
 UNOCCUPIED = 0
 OCCUPIED   = 1
 FOOD       = -10
@@ -52,7 +53,7 @@ def sum(matrix,x,y,height, health):
         else:
              sum += matrix[y, x-1]
     else:
-        sum += 1
+        sum += 2
     if (x+1) < height:
         if matrix[y, x+1]  is HEAD:
             if is_bigger(game_state['you']["body"], get_snek(x+1, y, get_game_state())):
@@ -62,7 +63,7 @@ def sum(matrix,x,y,height, health):
         else:
             sum += matrix[y, x+1]
     else:
-        sum += 1
+        sum += 2
     if (y-1) >= 0:
         if matrix[y-1, x]  is HEAD:
             if is_bigger(game_state['you']["body"], get_snek(x, y-1, get_game_state())):
@@ -72,7 +73,7 @@ def sum(matrix,x,y,height, health):
         else:
             sum += matrix[y-1, x]
     else:
-        sum += 1
+        sum += 2
     if (y+1) < height:
         if matrix[y+1, x]  is HEAD:
             if is_bigger(game_state['you'], get_snek(x, y+1, get_game_state())):
@@ -82,7 +83,7 @@ def sum(matrix,x,y,height, health):
         else:
             sum += matrix[y+1, x]
     else:
-        sum += 1
+        sum += 2
 
     if matrix[y,x] == FOOD and sum <12 and health < HEALTHLIM:
         return -100
