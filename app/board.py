@@ -2,8 +2,8 @@ import numpy as np
 
 UNOCCUPIED = 0
 OCCUPIED   = 1
-FOOD       = -5
-HEAD       = 2
+FOOD       = -10
+HEAD       = 10
 
 STORED_BOARDS = {}
 
