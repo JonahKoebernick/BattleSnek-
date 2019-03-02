@@ -1,8 +1,8 @@
 import numpy as np
 
-UNOCCUPIED = 0
-OCCUPIED   = 2
-FOOD       = -4
+UNOCCUPIED = -2
+OCCUPIED   = 3
+FOOD       = -3
 HEAD       = 4
 TAIL =2 
 
