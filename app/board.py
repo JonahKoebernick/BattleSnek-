@@ -54,7 +54,7 @@ def update_board(state):
         for coord in snake_body[1:]:
             place_coordinates(board, coord, OCCUPIED)
         head_coord = snake_body[0]
-        place_coordinates(board, head_coord, health)
+        place_coordinates(board, head_coord, HEAD)
 
     for coord in my_body[1:]:
         place_coordinates(board, coord, OCCUPIED)
