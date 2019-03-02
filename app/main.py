@@ -33,12 +33,9 @@ def start():
 @bottle.post('/move')
 def move():
     game_state = bottle.request.json
-    height = game_state["board"]["height"]
     new_board = update_board(game_state)
-    us = game_state['you']
-
     turn = game_state['turn']  # for testing
-    direction = calculate_move(new_board, us, height)
+    direction = calculate_move(new_board, game_state)
 
 
     return move_response(direction)

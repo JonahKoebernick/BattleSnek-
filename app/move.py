@@ -3,13 +3,15 @@ import numpy as np
 UNOCCUPIED = 0
 OCCUPIED   = 1
 FOOD       = -10
-HEAD       = 1
+HEAD       = 10
 HEALTHLIM = 30
 
-def calculate_move(board_matrix,us,height):
-    head= us["body"][0]
-    health = us["health"]
+def calculate_move(board_matrix, game_state):
+    height = game_state["board"]["height"]
+    head= game_state['you']["body"][0]
+    health = game_state['you']["health"]
     directions = {'up': 0, 'down': 0, 'left': 0, 'right': 0}
+
     # Check up
     if head["y"] - 1 < 0 or board_matrix[head["y"] - 1,head["x"]] == OCCUPIED :
         directions["up"] = 1000
