@@ -45,7 +45,6 @@ def move():
 @bottle.post('/end')
 def end():
     game_state = bottle.request.json
-    deconstruct_board(game_state)
     return end_response()
 
 # Expose WSGI app (so gunicorn can find it)
