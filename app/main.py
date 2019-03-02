@@ -5,7 +5,7 @@ import bottle
 
 
 from api import ping_response, start_response, move_response, end_response
-from board import construct_board, update_board, deconstruct_board
+from board import  update_board
 from move import calculate_move
 
 @bottle.route('/')
